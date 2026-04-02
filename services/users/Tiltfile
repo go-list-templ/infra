@@ -1,0 +1,21 @@
+docker_build(
+  'tilt.dev/users',
+  '.',
+  live_update=[
+    sync('.', '/app'),
+    run('cd /app && go build -o /app/app cmd/app/*.go', trigger='./cmd/app/'),
+    run('kill -HUP 1', trigger='./cmd/app/'),
+  ]
+)
+
+k8s_yaml([
+  'k8s/users-deployment.yaml',
+  'k8s/users-service.yaml',
+])
+
+k8s_resource(
+  'users',
+  resource_deps=['postgres', 'redis', 'otel-collector'],
+  port_forwards=['9001:9001', '9002:9002'],
+  labels=['app', 'users']
+)

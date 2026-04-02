@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sso
+  labels:
+    app: sso
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sso
+  template:
+    metadata:
+      labels:
+        app: sso
+    spec:
+      containers:
+        - name: app
+          image: tilt.dev/sso
+          ports:
+            - containerPort: 9011
+            - containerPort: 9012
+          env:
+            - name: DB_HOST
+              value: mongodb
+            - name: DB_PORT
+              value: "27017"
+            - name: OTEL_GRPC_ENDPOINT
+              value: otel-collector:4317
+          envFrom:
+            - secretRef:
+                name: mongo-creds
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sso
+  labels:
+    app: sso
+spec:
+  selector:
+    app: sso
+  ports:
+    - name: grpc
+      protocol: TCP
+      port: 9011
+      targetPort: 9011
+    - name: diagnostic
+      protocol: TCP
+      port: 9012
+      targetPort: 9012
+  type: ClusterIP

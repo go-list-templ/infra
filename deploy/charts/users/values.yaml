@@ -1,0 +1,7 @@
+image:
+  repository: ghcr.io/misha-ssh/users
+  tag: "v1.2.0"
+service:
+  grpcPort: 50052
+db:
+  host: "my-platform-postgresql"

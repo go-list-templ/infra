@@ -3,25 +3,80 @@ kube-prometheus-stack:
     adminPassword: "admin"
     service:
       type: NodePort
+    additionalDataSources:
+      - name: Loki
+        type: loki
+        url: http://observability-loki:3100
+        access: proxy
+      - name: Tempo
+        type: tempo
+        url: http://observability-tempo:3100
+        access: proxy
   prometheus:
     prometheusSpec:
       serviceMonitorSelectorNilUsesHelmValues: false
+      enableRemoteWriteReceiver: true
 
 loki-stack:
   loki:
     persistence:
       enabled: false
+    service:
+      name: loki
   promtail:
     enabled: true
 
 tempo:
-  service:
-    type: ClusterIP
   tempo:
     receivers:
       otlp:
         protocols:
           grpc:
             endpoint: "0.0.0.0:4317"
-          http:
-            endpoint: "0.0.0.0:4318"
+
+alloy:
+  alloy:
+    config: |
+      otelcol.receiver.otlp "default" {
+        grpc { 
+          endpoint = "0.0.0.0:4317" 
+        }
+        http { 
+          endpoint = "0.0.0.0:4318" 
+        }
+        output {
+          traces  = [otelcol.exporter.otlp.tempo.input]
+          metrics = [otelcol.exporter.prometheus.default.input]
+          logs    = [otelcol.exporter.loki.default.input]
+        }
+      }
+
+      otelcol.exporter.otlp "tempo" {
+        client {
+          endpoint = "observability-tempo:4317"
+          tls { insecure = true }
+        }
+      }
+
+      otelcol.exporter.prometheus "default" {
+        forward_to = [prometheus.remote_write.local.receiver]
+      }
+
+      prometheus.remote_write "local" {
+        endpoint { 
+          url = "http://observability-prometheus-server/api/v1/write" 
+        }
+      }
+
+      otelcol.exporter.loki "default" {
+        forward_to = [loki.write.local.receiver]
+      }
+
+      loki.write "local" {
+        endpoint { 
+          url = "http://observability-loki:3100/loki/api/v1/push" 
+        }
+      }
+
+  controller:
+    type: deployment

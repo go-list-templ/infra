@@ -1,0 +1,13 @@
+apiVersion: v2
+name: observability
+version: 0.1.0
+dependencies:
+  - name: kube-prometheus-stack
+    version: "61.x.x"
+    repository: "https://prometheus-community.github.io/helm-charts"
+  - name: loki-stack
+    version: "2.x.x"
+    repository: "https://grafana.github.io/helm-charts"
+  - name: tempo
+    version: "1.10.x"
+    repository: "https://grafana.github.io/helm-charts"

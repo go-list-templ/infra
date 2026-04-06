@@ -1,0 +1,27 @@
+kube-prometheus-stack:
+  grafana:
+    adminPassword: "admin"
+    service:
+      type: NodePort
+  prometheus:
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false
+
+loki-stack:
+  loki:
+    persistence:
+      enabled: false
+  promtail:
+    enabled: true
+
+tempo:
+  service:
+    type: ClusterIP
+  tempo:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: "0.0.0.0:4317"
+          http:
+            endpoint: "0.0.0.0:4318"

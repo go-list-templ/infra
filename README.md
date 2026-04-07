@@ -7,7 +7,7 @@
 Install dependency helm
 
 ```bash
-cd observability ; helm dependency update
+helm dependency update ./observability
 ```
 
 ```bash

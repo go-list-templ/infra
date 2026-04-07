@@ -1,93 +1,88 @@
-cluster:
-  name: local-dev
+alloy:
+  configMap:
+    content: |
+      // OTLP receiver configuration
+      otelcol.receiver.otlp "otlp_receiver" {
+        grpc {
+          endpoint = "0.0.0.0:4317"
+        }
+        http {
+          endpoint = "0.0.0.0:4318"
+        }
+        output {
+          traces = [otelcol.exporter.otlp.tempo.input]
+        }
+      }
+      
+      // OTLP exporter to Tempo
+      otelcol.exporter.otlp "tempo" {
+        client {
+          endpoint = "tempo:4317"
+          tls {
+            insecure = true
+          }
+        }
+      }
+  extraPorts:
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
+      protocol: TCP
+    - name: otlp-http
+      port: 4318
+      targetPort: 4318
+      protocol: TCP
 
 kube-prometheus-stack:
   grafana:
     adminPassword: "admin"
     service:
       type: NodePort
-    additionalDataSources:
-      - name: Loki
-        type: loki
-        url: http://observability-loki:3100
-        access: proxy
-      - name: Tempo
-        type: tempo
-        url: http://observability-tempo:3100
-        access: proxy
-        jsonData:
-          httpMethod: POST
-          serviceMap:
-            datasourceUid: 'prometheus'
+    plugins:
+      - grafana-exploretraces-app
+
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Tempo
+            type: tempo
+            access: proxy
+            url: http://tempo:3100
+            uid: tempo
+            jsonData:
+              httpMethod: GET
+              serviceMap:
+                datasourceUid: prometheus
+              tracesToMetrics:
+                datasourceUid: prometheus
   prometheus:
     prometheusSpec:
-      serviceMonitorSelectorNilUsesHelmValues: false
       enableRemoteWriteReceiver: true
+      enableFeatures:
+        - exemplar-storage
+        - native-histograms
 
-loki-stack:
-  loki:
-    persistence:
-      enabled: false
-    service:
-      name: loki
-  promtail:
-    enabled: true
+  alertmanager:
+    enabled: false
+
+  nodeExporter:
+    enabled: false
+
+  prometheus-node-exporter:
+    enabled: false
 
 tempo:
-  service:
-    type: ClusterIP
-  tempo:
-    receivers:
-      otlp:
-        protocols:
-          grpc:
-            endpoint: "0.0.0.0:4317"
+  tag: main-814c1c6
 
-alloy:
-  controller:
-    type: deployment
-  service:
+  metricsGenerator:
     enabled: true
-    type: ClusterIP
-    extraPorts:
-      - name: otlp-grpc
-        port: 4317
-        targetPort: 4317
-        protocol: TCP
-  alloy:
-    config: |
-      otelcol.receiver.otlp "default" {
-        grpc { endpoint = "0.0.0.0:4317" }
-        output {
-          traces  = [otelcol.exporter.otlp.tempo.input]
-          metrics = [otelcol.exporter.prometheus.default.input]
-          logs    = [otelcol.exporter.loki.default.input]
-        }
-      }
+    remoteWriteUrl: "http://monitoring-kube-prometheus-prometheus:9090/api/v1/write"
 
-      otelcol.exporter.otlp "tempo" {
-        client {
-          endpoint = "observability-tempo:4317"
-          tls { insecure = true }
-        }
-      }
+  overrides:
+    defaults:
+      metrics_generator:
+        processors: [service-graphs, span-metrics, local-blocks]
 
-      otelcol.exporter.prometheus "default" {
-        forward_to = [prometheus.remote_write.local.receiver]
-      }
-
-      prometheus.remote_write "local" {
-        endpoint { 
-          url = "http://observability-kube-prometheus-prometheus:9090/api/v1/write" 
-        }
-      }
-
-      otelcol.exporter.loki "default" {
-        forward_to = [loki.write.local.receiver]
-      }
-
-      loki.write "local" {
-        endpoint { 
-          url = "http://observability-loki:3100/loki/api/v1/push" 
-        }
-      }
+  persistence:
+    enabled: true

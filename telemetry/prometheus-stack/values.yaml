@@ -29,10 +29,11 @@ grafana:
       access: proxy
     - name: Loki
       type: loki
-      url: http://loki.telemetry.svc.cluster.local:3100
+      url: http://loki-gateway.telemetry.svc.cluster.local:80
       access: proxy
-      derivedFields:
-        - datasourceUid: tempo
-          matcherRegex: "traceID=(\\w+)"
-          name: TraceID
-          url: "$${__value.raw}"
+      # Even with auth_enabled: false, Loki requires an org ID header
+      # This is a known quirk - the value can be anything since auth is disabled
+      jsonData:
+        httpHeaderName1: "X-Scope-OrgID"
+      secureJsonData:
+        httpHeaderValue1: "fake"

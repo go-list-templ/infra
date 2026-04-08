@@ -30,6 +30,9 @@ loki:
   server:
     http_listen_port: 3100
 
+  storage:
+    type: 'filesystem'
+
   common:
     ring:
       instance_addr: 127.0.0.1
@@ -37,9 +40,6 @@ loki:
         store: inmemory
     replication_factor: 1
     path_prefix: /tmp/loki
-
-  storage:
-    type: 'filesystem'
 
   schemaConfig:
     configs:

@@ -10,15 +10,26 @@ alloy:
         }
         output {
           traces = [otelcol.exporter.otlp.tempo.input]
+          logs   = [otelcol.exporter.loki.loki_exporter.input]
         }
       }
       
       otelcol.exporter.otlp "tempo" {
         client {
-          endpoint = "observability-tempo.monitoring.svc.cluster.local:4317"
+          endpoint = "tempo.telemetry.svc.cluster.local:4317"
           tls {
             insecure = true
           }
+        }
+      }
+      
+      otelcol.exporter.loki "loki_exporter" {
+        forward_to = [loki.write.local_loki.receiver]
+      }
+
+      loki.write "local_loki" {
+        endpoint {
+          url = "http://loki.telemetry.svc.cluster.local:3100/loki/api/v1/push"
         }
       }
 

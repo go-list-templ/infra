@@ -1,0 +1,8 @@
+releases:
+  - name: observability
+    namespace: monitoring
+    chart: ./observability
+    values:
+      - ./observability/alloy-values.yaml
+      - ./observability/prometheus-values.yaml
+      - ./observability/tempo-values.yaml

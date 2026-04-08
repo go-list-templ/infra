@@ -11,6 +11,23 @@ alloy:
         output {
           traces = [otelcol.exporter.otlp.tempo.input]
           logs   = [otelcol.exporter.loki.loki_exporter.input]
+          metrics = [otelcol.processor.batch.default.input]
+        }
+      }
+      
+      otelcol.processor.batch "default" {
+        output {
+          metrics = [otelcol.exporter.prometheus.to_prometheus.input]
+        }
+      }
+
+      otelcol.exporter.prometheus "to_prometheus" {
+        forward_to = [prometheus.remote_write.local_prom.receiver]
+      }
+
+      prometheus.remote_write "local_prom" {
+        endpoint {
+          url = "http://prometheus-stack-kube-prom-prometheus.telemetry.svc.cluster.local:9090/api/v1/write"
         }
       }
       

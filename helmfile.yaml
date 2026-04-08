@@ -1,11 +1,38 @@
+repositories:
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+  - name: grafana-community
+    url: https://grafana-community.github.io/helm-charts
+
 releases:
-  - name: observability
-    namespace: monitoring
-    chart: ./observability
-    createNamespace: true
-    force: false
-    wait: true
+  - name: prometheus-stack
+    namespace: telemetry
+    chart: prometheus-community/kube-prometheus-stack
+    version: "72.6.2"
     values:
-      - ./observability/alloy-values.yaml
-      - ./observability/prometheus-values.yaml
-      - ./observability/tempo-values.yaml
+      - ./telemetry/prometheus-stack/values.yaml
+
+  - name: loki
+    namespace: telemetry
+    chart: grafana/loki
+    version: "6.55.0"
+    needs: [ telemetry/prometheus-stack ]
+    values:
+      - ./telemetry/loki/values.yaml
+
+  - name: tempo
+    namespace: telemetry
+    chart: grafana/tempo
+    version: "1.21.1"
+    values:
+      - ./telemetry/tempo/values.yaml
+
+  - name: alloy
+    namespace: telemetry
+    chart: grafana/alloy
+    version: "1.0.3"
+    needs: [ telemetry/loki, telemetry/tempo ]
+    values:
+      - ./telemetry/alloy/values.yaml

@@ -8,7 +8,13 @@ Install:
 
 ## Observability
 
-Install dependency helm and deploy (release) to kuber
+Install dependencies
+
+```bash
+helmfile deps
+```
+
+Release to kuber
 
 ```bash
 helmfile apply
@@ -23,5 +29,5 @@ helmfile destroy --skip-charts
 Delete all from namespace 
 
 ```bash
-kubectl delete all --all --namespace monitoring
+kubectl delete all --all --namespace telemetry
 ```

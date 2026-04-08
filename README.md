@@ -1,5 +1,9 @@
 # Doc
 
+Install:
+- [helm](https://helm.sh/docs/intro/install/)
+- [helmfile](https://helmfile.readthedocs.io/en/latest/#installation) + [helm-diff](https://github.com/databus23/helm-diff)
+
 ---
 
 ## Observability
@@ -7,11 +11,7 @@
 Install dependency helm
 
 ```bash
-helm dependency update ./observability
-```
-
-```bash
-helm upgrade --install observability ./observability -n monitoring --create-namespace
+helmfile apply
 ```
 
 ```bash

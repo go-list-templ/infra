@@ -8,11 +8,19 @@ Install:
 
 ## Observability
 
-Install dependency helm
+Install dependency helm and deploy (release) to kuber
 
 ```bash
 helmfile apply
 ```
+
+Delete all release from kuber
+
+```bash
+helmfile destroy --skip-charts
+```
+
+Delete all from namespace 
 
 ```bash
 kubectl delete all --all --namespace monitoring

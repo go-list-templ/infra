@@ -2,6 +2,9 @@ releases:
   - name: observability
     namespace: monitoring
     chart: ./observability
+    createNamespace: true
+    force: false
+    wait: true
     values:
       - ./observability/alloy-values.yaml
       - ./observability/prometheus-values.yaml

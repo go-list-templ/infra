@@ -1,0 +1,20 @@
+tempo:
+  tempo:
+    receivers:
+      otlp:
+        protocols:
+          grpc: { endpoint: "0.0.0.0:4317" }
+
+    tag: main-814c1c6
+
+    metricsGenerator:
+      enabled: true
+      remoteWriteUrl: "http://observability-kube-prometh-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
+
+    overrides:
+      defaults:
+        metrics_generator:
+          processors: [ service-graphs, span-metrics, local-blocks ]
+
+  persistence:
+    enabled: true

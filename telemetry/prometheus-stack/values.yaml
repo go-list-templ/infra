@@ -31,5 +31,3 @@ grafana:
       type: loki
       url: http://loki-gateway.telemetry.svc.cluster.local:80
       access: proxy
-      jsonData:
-        httpHeaderName1: "X-Scope-OrgID"

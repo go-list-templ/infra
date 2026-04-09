@@ -42,18 +42,13 @@ grafana:
       access: proxy
       editable: true
       jsonData:
-        # HTTP method for API calls
         httpMethod: GET
-        # Enable service graph visualization
         serviceMap:
           datasourceUid: prometheus
-        # Enable node graph for trace visualization
         nodeGraph:
           enabled: true
-        # TraceQL search configuration
         search:
           hide: false
-        # Link traces to logs in Loki
         tracesToLogsV2:
           datasourceUid: loki
           spanStartTimeShift: "-1h"
@@ -62,7 +57,6 @@ grafana:
           filterBySpanID: true
           customQuery: true
           query: '{$${__tags}} |= "$${__span.traceId}"'
-        # Link traces to metrics
         tracesToMetrics:
           datasourceUid: prometheus
           spanStartTimeShift: "-1h"
@@ -81,7 +75,7 @@ grafana:
         derivedFields:
           - name: "trace_id"
             matcherType: "label"
-            matcherRegex: "trace_id"
+            matcherRegex: "traceid"
             url: "$${__value.raw}"
             datasourceUid: "tempo"
             urlDisplayLabel: "Trace: $${__value.raw}"

@@ -14,6 +14,22 @@ prometheus:
       - exemplar-storage
       - native-histograms
 
+kubeApiServer:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeProxy:
+  enabled: false
+
+kube-state-metrics:
+  collectors:
+    - deployments
+    - pods
+    - statefulsets
+    - nodes
+
 grafana:
   adminPassword: "admin"
   service:
@@ -28,12 +44,39 @@ grafana:
       url: http://tempo.telemetry.svc.cluster.local:3200
       access: proxy
       jsonData:
-        httpMethod: GET
-        serviceMap:
-          datasourceUid: prometheus
-        tracesToMetrics:
-          datasourceUid: prometheus
+        tracesToLogsV2:
+          datasourceUid: loki
+          spanStartTimeShift: "-1h"
+          spanEndTimeShift: "1h"
+          tags:
+            - key: "service.name"
+              value: "service_name"
+            - key: "host.name"
+              value: "host"
+          filterByTraceID: true
+          filterBySpanID: false
+          customQuery: true
+          query: '{$${__tags}} |= "$${__trace.traceId}"'
+          serviceMap:
+            datasourceUid: prometheus
+          nodeGraph:
+            enabled: true
+          search:
+            hide: false
+          lokiSearch:
+            datasourceUid: loki
     - name: Loki
       type: loki
       url: http://loki-gateway.telemetry.svc.cluster.local:80
       access: proxy
+      jsonData:
+        derivedFields:
+          - datasourceUid: tempo
+            matcherRegex: "trace_id=(\\w+)"
+            name: TraceID
+            url: "$${__value.raw}"
+          - datasourceUid: tempo
+            matcherRegex: '"trace_id":\\s*"(\\w+)"'
+            name: TraceID
+            url: "$${__value.raw}"
+        maxLines: 1000

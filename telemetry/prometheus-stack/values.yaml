@@ -25,15 +25,14 @@ grafana:
   additionalDataSources:
     - name: Tempo
       type: tempo
-      url: http://tempo.telemetry.svc.cluster.local:3100
+      url: http://tempo.telemetry.svc.cluster.local:3200
       access: proxy
     - name: Loki
       type: loki
-      url: http://loki-gateway.telemetry.svc.cluster.local:80
       access: proxy
-      # Even with auth_enabled: false, Loki requires an org ID header
-      # This is a known quirk - the value can be anything since auth is disabled
-      jsonData:
-        httpHeaderName1: "X-Scope-OrgID"
-      secureJsonData:
-        httpHeaderValue1: "fake"
+      orgId: 1
+      url: http://loki-gateway.telemetry.svc.cluster.local:80
+      basicAuth: false
+      isDefault: false
+      version: 1
+      editable: false

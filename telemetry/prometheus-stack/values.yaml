@@ -29,10 +29,5 @@ grafana:
       access: proxy
     - name: Loki
       type: loki
-      access: proxy
-      orgId: 1
       url: http://loki-gateway.telemetry.svc.cluster.local:80
-      basicAuth: false
-      isDefault: false
-      version: 1
-      editable: false
+      access: proxy

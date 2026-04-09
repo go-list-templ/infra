@@ -10,29 +10,29 @@ releases:
   - name: prometheus-stack
     namespace: telemetry
     chart: prometheus-community/kube-prometheus-stack
-    version: "72.6.2"
+    version: "83.3.0"
     values:
       - ./telemetry/prometheus-stack/values.yaml
 
   - name: loki
     namespace: telemetry
-    chart: grafana/loki
-    version: "6.55.0"
+    chart: grafana-community/loki
+    version: "11.4.0"
     needs: [ telemetry/prometheus-stack ]
     values:
       - ./telemetry/loki/values.yaml
 
   - name: tempo
     namespace: telemetry
-    chart: grafana/tempo
-    version: "1.21.1"
+    chart: grafana-community/tempo
+    version: "2.0.0"
     values:
       - ./telemetry/tempo/values.yaml
 
   - name: alloy
     namespace: telemetry
     chart: grafana/alloy
-    version: "1.0.3"
+    version: "1.7.0"
     needs: [ telemetry/loki, telemetry/tempo ]
     values:
       - ./telemetry/alloy/values.yaml

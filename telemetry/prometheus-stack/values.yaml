@@ -42,22 +42,34 @@ grafana:
       access: proxy
       editable: true
       jsonData:
-        tracesToLogsV2:
-          customQuery: true
-          datasourceUid: "loki"
-          query: '{$${__tags}} | trace_id = "$${__trace.traceId}"'
-          tags:
-            - key: "service.name"
-              value: "service_name"
-
+        # HTTP method for API calls
+        httpMethod: GET
+        # Enable service graph visualization
         serviceMap:
-          datasourceUid: "prometheus"
-        search:
-          hide: false
+          datasourceUid: prometheus
+        # Enable node graph for trace visualization
         nodeGraph:
           enabled: true
-        lokiSearch:
-          datasourceUid: "loki"
+        # TraceQL search configuration
+        search:
+          hide: false
+        # Link traces to logs in Loki
+        tracesToLogsV2:
+          datasourceUid: loki
+          spanStartTimeShift: "-1h"
+          spanEndTimeShift: "1h"
+          filterByTraceID: true
+          filterBySpanID: true
+          customQuery: true
+          query: '{$${__tags}} |= "$${__span.traceId}"'
+        # Link traces to metrics
+        tracesToMetrics:
+          datasourceUid: prometheus
+          spanStartTimeShift: "-1h"
+          spanEndTimeShift: "1h"
+          tags:
+            - key: service.name
+              value: job
 
     - name: Loki
       type: loki

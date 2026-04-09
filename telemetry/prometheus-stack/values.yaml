@@ -27,6 +27,12 @@ grafana:
       type: tempo
       url: http://tempo.telemetry.svc.cluster.local:3200
       access: proxy
+      jsonData:
+        httpMethod: GET
+        serviceMap:
+          datasourceUid: prometheus
+        tracesToMetrics:
+          datasourceUid: prometheus
     - name: Loki
       type: loki
       url: http://loki-gateway.telemetry.svc.cluster.local:80

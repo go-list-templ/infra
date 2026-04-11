@@ -1,0 +1,21 @@
+name: Lint
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  helm-lint:
+    name: helm lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup helmfile
+        uses: mamezou-tech/setup-helmfile@v2.2.0
+      - name: Helm lint
+        run: helmfile lint

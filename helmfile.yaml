@@ -5,8 +5,6 @@ repositories:
     url: https://grafana.github.io/helm-charts
   - name: grafana-community
     url: https://grafana-community.github.io/helm-charts
-  - name: istio
-    url: https://istio-release.storage.googleapis.com/charts
 
 releases:
   - name: prometheus-stack
@@ -38,16 +36,3 @@ releases:
     needs: [ telemetry/loki, telemetry/tempo ]
     values:
       - ./telemetry/alloy/values.yaml
-
-  - name: istio-base
-    namespace: istio-system
-    chart: istio/base
-    version: "1.29.1"
-
-  - name: istiod
-    namespace: istio-system
-    chart: istio/istiod
-    version: "1.29.1"
-    needs: [ istio-system/istio-base ]
-    values:
-      - ./service-mesh/istiod/values.yaml

@@ -3,12 +3,6 @@ dependencies:
   - name: alloy
     repository: https://grafana.github.io/helm-charts
     version: 1.7.0
-  - name: base
-    repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.29.1
-  - name: istiod
-    repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.29.1
   - name: kube-prometheus-stack
     repository: https://prometheus-community.github.io/helm-charts
     version: 83.3.0
@@ -18,5 +12,5 @@ dependencies:
   - name: tempo
     repository: https://grafana-community.github.io/helm-charts
     version: 2.0.0
-digest: sha256:f9ea7e8ced20f2465291ad8ccd22d163d53787b4c136f87290f6bcd9d0a15505
-generated: "2026-04-10T02:57:26.298821+03:00"
+digest: sha256:e57c34a3b30bfc0415ff275618b4fbf350bc4f5452c425e5c8d4bf8a0e0e75a5
+generated: "2026-04-11T23:58:54.296307+03:00"

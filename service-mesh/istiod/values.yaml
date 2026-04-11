@@ -1,8 +1,0 @@
-sidecarInjectorWebhook:
-  enableNamespacesByDefault: false
-
-pilot:
-  resources:
-    requests:
-      cpu: 500m
-      memory: 2048Mi

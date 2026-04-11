@@ -79,3 +79,10 @@ grafana:
             url: "$${__value.raw}"
             datasourceUid: "tempo"
             urlDisplayLabel: "Trace: $${__value.raw}"
+
+    - name: Pyroscope
+      type: pyroscope
+      uid: pyroscope
+      url: http://pyroscope.telemetry.svc.cluster.local:4040
+      access: proxy
+      editable: true

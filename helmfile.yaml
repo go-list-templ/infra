@@ -29,10 +29,17 @@ releases:
     values:
       - ./telemetry/tempo/values.yaml
 
+  - name: pyroscope
+    namespace: telemetry
+    chart: grafana/pyroscope
+    version: "1.20.3"
+    values:
+      - ./telemetry/pyroscope/values.yaml
+
   - name: alloy
     namespace: telemetry
     chart: grafana/alloy
     version: "1.7.0"
-    needs: [ telemetry/loki, telemetry/tempo ]
+    needs: [ telemetry/loki, telemetry/tempo, telemetry/pyroscope ]
     values:
       - ./telemetry/alloy/values.yaml

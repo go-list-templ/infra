@@ -1,5 +1,8 @@
+target: all
+
 server:
-  grpc_listen_port: 9097 # to avoid conflict with tempo
+  http_listen_port: 4040
+  grpc_listen_port: 9095
 
 alloy:
   enabled: false

@@ -49,6 +49,21 @@ alloy:
           url = "http://loki-gateway.telemetry.svc.cluster.local:80/loki/api/v1/push"
         }
       }
+      
+      pyroscope.receive_http "pyroscope_receiver" {
+        http {
+          listen_address = "0.0.0.0"
+          listen_port    = 4040
+        }
+      
+        forward_to = [pyroscope.write.pyroscope_writer.receiver]
+      }
+      
+      pyroscope.write "pyroscope_writer" {
+        endpoint {
+          url = "http://pyroscope.telemetry.svc.cluster.local:4040"
+        }
+      }
 
   extraPorts:
     - name: otlp-grpc
@@ -58,4 +73,8 @@ alloy:
     - name: otlp-http
       port: 4318
       targetPort: 4318
+      protocol: TCP
+    - name: pyroscope-http
+      port: 4040
+      targetPort: 4040
       protocol: TCP

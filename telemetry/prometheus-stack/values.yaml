@@ -50,6 +50,8 @@ grafana:
           enabled: true
         search:
           hide: false
+        lokiSearch:
+          datasourceUid: loki
         tracesToLogsV2:
           datasourceUid: loki
           spanStartTimeShift: "-1h"
@@ -82,7 +84,7 @@ grafana:
             urlDisplayLabel: "Trace: $${__value.raw}"
 
     - name: Pyroscope
-      type: pyroscope
+      type: grafana-pyroscope-datasource
       uid: pyroscope
       url: http://pyroscope.telemetry.svc.cluster.local:4040
       access: proxy

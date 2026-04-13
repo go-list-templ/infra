@@ -21,6 +21,7 @@ grafana:
 
   plugins:
     - grafana-exploretraces-app
+    - grafana-pyroscope-app
 
   additionalDataSources:
     - name: Prometheus
@@ -86,3 +87,5 @@ grafana:
       url: http://pyroscope.telemetry.svc.cluster.local:4040
       access: proxy
       editable: true
+      jsonData:
+        minStep: '15s'

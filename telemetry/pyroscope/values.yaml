@@ -1,6 +1,9 @@
 server:
   grpc_listen_port: 9097 # to avoid conflict with tempo
 
+alloy:
+  enabled: false
+
 metastore:
   address: 0.0.0.0
   min_ready_duration: 1s

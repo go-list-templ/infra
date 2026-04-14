@@ -1,15 +1,9 @@
-target: all
-
-server:
-  http_listen_port: 4040
-  grpc_listen_port: 9095
-
-alloy:
-  enabled: false
-
 metastore:
   address: 0.0.0.0
   min_ready_duration: 1s
+
+alloy:
+  enabled: false
 
 distributor:
   ring:

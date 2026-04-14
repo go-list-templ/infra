@@ -33,7 +33,7 @@ grafana:
         timeInterval: 60s
         exemplarTraceIdDestinations:
           - name: trace_id
-            datasourceUid: tempo
+            datasourceUid: "tempo"
             urlDisplayLabel: "Trace: $${__value.raw}"
 
     - name: Tempo
@@ -51,9 +51,9 @@ grafana:
         search:
           hide: false
         lokiSearch:
-          datasourceUid: loki
+          datasourceUid: "loki"
         tracesToLogsV2:
-          datasourceUid: loki
+          datasourceUid: "loki"
           spanStartTimeShift: "-1h"
           spanEndTimeShift: "1h"
           filterByTraceID: true
@@ -67,6 +67,13 @@ grafana:
           tags:
             - key: service.name
               value: job
+        tracesToProfiles:
+          customQuery: false
+          datasourceUid: "pyroscope"
+          profileTypeId: "process_cpu:cpu:nanoseconds:cpu:nanoseconds"
+          tags:
+            - key: "service.name"
+              value: "service_name"
 
     - name: Loki
       type: loki

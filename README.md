@@ -64,7 +64,8 @@ vault auth enable kubernetes
 Enable auth config
 ```bash
 vault write auth/kubernetes/config \
-    kubernetes_host="https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT"
+    kubernetes_host="https://kubernetes.default.svc" \
+    disable_iss_validation=true
 ```
 
 Create role for sso-service

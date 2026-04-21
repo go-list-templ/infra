@@ -5,6 +5,8 @@ repositories:
     url: https://grafana.github.io/helm-charts
   - name: grafana-community
     url: https://grafana-community.github.io/helm-charts
+  - name: hashicorp
+    url: https://helm.releases.hashicorp.com
 
 releases:
   - name: prometheus-stack
@@ -43,3 +45,10 @@ releases:
     needs: [ telemetry/loki, telemetry/tempo, telemetry/pyroscope ]
     values:
       - ./telemetry/alloy/values.yaml
+
+  - name: vault
+    namespace: vault
+    chart: hashicorp/vault
+    version: "0.32.0"
+    values:
+      - ./vault/values.yaml

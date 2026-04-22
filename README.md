@@ -36,6 +36,18 @@ kubectl delete all --all --namespace telemetry
 
 ## Vault
 
+Enable auth in kuber
+```bash
+vault auth enable kubernetes
+```
+
+Enable auth config
+```bash
+vault write auth/kubernetes/config \
+    kubernetes_host="https://kubernetes.default.svc" \
+    disable_iss_validation=true
+```
+
 Enable Key-value store
 
 ```bash
@@ -56,23 +68,7 @@ path "secret/data/sso-service/*" {
 EOF
 ```
 
-Enable auth in kuber
-```bash
-vault auth enable kubernetes
-```
-
-Enable auth config
-```bash
-vault write auth/kubernetes/config \
-    kubernetes_host="https://kubernetes.default.svc" \
-    disable_iss_validation=true
-```
-
 Create role for sso-service
 ```bash
-vault write auth/kubernetes/role/sso-service-role \ 
-  bound_service_account_names=sso-service \
-  bound_service_account_namespaces=sso-service \ 
-  policies=sso-policy \
-  ttl=24h
+vault write auth/kubernetes/role/sso-service-role bound_service_account_names=sso-service-sa bound_service_account_namespaces=sso-service policies=sso-policy ttl=24h
 ```

@@ -1,3 +1,17 @@
 .idea
 
 *.tgz
+
+### Terraform files
+**/.*.lock.hcl
+**/*.tfstate
+**/*.tfstate.backup
+**/.terraform/*
+**/.*.tfstate.lock.info
+**/*.tfvars
+/.idea/
+**/terraform.log
+**/acme-issuer.yaml
+**/*.iml
+**/env.hcl
+**/.terragrunt-cache/*

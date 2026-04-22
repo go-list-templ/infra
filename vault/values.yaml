@@ -1,5 +1,10 @@
 global:
   enabled: true
+  externalVaultAddr: "http://vault.vault.svc.cluster.local:8200"
+
+injector:
+  enabled: true
+  replicas: 1
 
 server:
   dev:

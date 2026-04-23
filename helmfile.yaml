@@ -1,48 +1,25 @@
-repositories:
-  - name: prometheus-community
-    url: https://prometheus-community.github.io/helm-charts
-  - name: grafana
-    url: https://grafana.github.io/helm-charts
-  - name: grafana-community
-    url: https://grafana-community.github.io/helm-charts
-
 releases:
-  - name: prometheus-stack
-    namespace: monitoring
-    chart: prometheus-community/kube-prometheus-stack
-    version: "83.3.0"
-    values:
-      - ./monitoring/prometheus-stack/values.yaml
-
-  - name: loki
-    namespace: monitoring
-    chart: grafana-community/loki
-    version: "11.4.0"
-    needs: [ monitoring/prometheus-stack ]
-    values:
-      - ./monitoring/loki/values.yaml
-
   - name: tempo
     namespace: monitoring
-    chart: grafana-community/tempo
-    version: "2.0.0"
-    values:
-      - ./monitoring/tempo/values.yaml
+    chart: ./monitoring/tempo
 
   - name: pyroscope
     namespace: monitoring
-    chart: grafana/pyroscope
-    version: "1.20.3"
-    values:
-      - ./monitoring/pyroscope/values.yaml
+    chart: ./monitoring/pyroscope
+
+  - name: prometheus
+    namespace: monitoring
+    chart: ./monitoring/prometheus
+
+  - name: loki
+    namespace: monitoring
+    chart: ./monitoring/loki
+    needs: [ monitoring/prometheus ]
 
   - name: alloy
     namespace: monitoring
-    chart: grafana/alloy
-    version: "1.7.0"
+    chart: ./monitoring/alloy
     needs: [ monitoring/loki, monitoring/tempo, monitoring/pyroscope ]
-    values:
-      - ./monitoring/alloy/values.yaml
 
   - name: vault
     namespace: secrets

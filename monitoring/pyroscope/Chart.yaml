@@ -1,0 +1,7 @@
+apiVersion: v2
+name: vault-bundle
+version: 1.0.0
+dependencies:
+  - name: pyroscope
+    version: "1.20.3"
+    repository: "https://grafana.github.io/helm-charts"

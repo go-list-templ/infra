@@ -1,4 +1,6 @@
 terraform {
+  backend "kubernetes" {}
+
   required_providers {
     vault = {
       source  = "hashicorp/vault"
@@ -8,6 +10,6 @@ terraform {
 }
 
 provider "vault" {
-  address = "http://localhost:8200"
-  token   = "root"
+  address = "http://vault.secrets.svc.cluster.local:8200"
+  token   = "root" # todo delete hardcode
 }

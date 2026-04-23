@@ -51,4 +51,4 @@ releases:
     chart: hashicorp/vault
     version: "0.32.0"
     values:
-      - ./vault/values.yaml
+      - ./secrets/vault/values.yaml

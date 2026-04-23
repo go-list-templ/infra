@@ -27,13 +27,13 @@ alloy:
 
       prometheus.remote_write "local_prom" {
         endpoint {
-          url = "http://prometheus-stack-kube-prom-prometheus.telemetry.svc.cluster.local:9090/api/v1/write"
+          url = "http://prometheus-stack-kube-prom-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
         }
       }
       
       otelcol.exporter.otlp "tempo" {
         client {
-          endpoint = "tempo.telemetry.svc.cluster.local:4317"
+          endpoint = "tempo.monitoring.svc.cluster.local:4317"
           tls {
             insecure = true
           }
@@ -46,7 +46,7 @@ alloy:
 
       loki.write "local_loki" {
         endpoint {
-          url = "http://loki-gateway.telemetry.svc.cluster.local:80/loki/api/v1/push"
+          url = "http://loki-gateway.monitoring.svc.cluster.local:80/loki/api/v1/push"
         }
       }
       
@@ -61,7 +61,7 @@ alloy:
       
       pyroscope.write "pyroscope_writer" {
         endpoint {
-          url = "http://pyroscope.telemetry.svc.cluster.local:4040"
+          url = "http://pyroscope.monitoring.svc.cluster.local:4040"
         }
       }
 

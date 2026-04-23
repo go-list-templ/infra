@@ -8,7 +8,7 @@ tempo:
 
   metricsGenerator:
     enabled: true
-    remoteWriteUrl: "http://prometheus-stack-kube-prom-prometheus.telemetry.svc.cluster.local:9090/api/v1/write"
+    remoteWriteUrl: "http://prometheus-stack-kube-prom-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
 
   overrides:
     defaults:

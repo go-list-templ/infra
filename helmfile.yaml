@@ -5,8 +5,6 @@ repositories:
     url: https://grafana.github.io/helm-charts
   - name: grafana-community
     url: https://grafana-community.github.io/helm-charts
-  - name: hashicorp
-    url: https://helm.releases.hashicorp.com
 
 releases:
   - name: prometheus-stack
@@ -48,7 +46,4 @@ releases:
 
   - name: vault
     namespace: secrets
-    chart: hashicorp/vault
-    version: "0.32.0"
-    values:
-      - ./secrets/vault/values.yaml
+    chart: ./secrets/vault

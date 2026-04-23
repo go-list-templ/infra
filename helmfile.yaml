@@ -47,7 +47,7 @@ releases:
       - ./monitoring/alloy/values.yaml
 
   - name: vault
-    namespace: vault
+    namespace: secrets
     chart: hashicorp/vault
     version: "0.32.0"
     values:

@@ -1,5 +1,5 @@
 apiVersion: v2
-name: vault-bundle
+name: loki
 version: 1.0.0
 dependencies:
   - name: loki

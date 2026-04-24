@@ -14,12 +14,16 @@ releases:
   - name: loki
     namespace: monitoring
     chart: ./monitoring/loki
-    needs: [ monitoring/prometheus ]
+    needs:
+      - prometheus
 
   - name: alloy
     namespace: monitoring
     chart: ./monitoring/alloy
-    needs: [ monitoring/loki, monitoring/tempo, monitoring/pyroscope ]
+    needs:
+      - loki
+      - tempo
+      - pyroscope
 
   - name: vault
     namespace: secrets

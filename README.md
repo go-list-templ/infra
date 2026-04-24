@@ -1,17 +1,17 @@
 ## Required dependencies
 
 - [helm](https://helm.sh/docs/intro/install/)
-- [helmfile](https://helmfile.readthedocs.io/en/latest/#installation) + [helm-diff](https://github.com/databus23/helm-diff)
+- [helmfile](https://helmfile.readthedocs.io/en/latest/#installation)
 - [terraform](https://developer.hashicorp.com/terraform/install)
 
 ---
 
 ## Start
 
-Init
+Init to install plugin and depends
 
 ```bash
-make deps ; make release
+make init
 ```
 
 Realese to kuber

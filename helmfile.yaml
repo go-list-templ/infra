@@ -1,4 +1,8 @@
 releases:
+  - name: cert-manager
+    namespace: cert
+    chart: ./cert/cert-manager
+
   - name: tempo
     namespace: monitoring
     chart: ./monitoring/tempo
@@ -34,3 +38,4 @@ releases:
     chart: ./secrets/vault-config
     needs:
       - vault
+      - cert/cert-manager

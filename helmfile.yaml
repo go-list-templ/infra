@@ -32,3 +32,5 @@ releases:
   - name: vault-config
     namespace: secrets
     chart: ./secrets/vault-config
+    needs:
+      - vault

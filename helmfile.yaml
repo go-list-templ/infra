@@ -32,10 +32,3 @@ releases:
   - name: vault
     namespace: secrets
     chart: ./secrets/vault
-
-  - name: vault-config
-    namespace: secrets
-    chart: ./secrets/vault-config
-    needs:
-      - vault
-      - cert/cert-manager

@@ -32,3 +32,7 @@ releases:
   - name: vault
     namespace: secrets
     chart: ./secrets/vault
+
+  - name: crossplane
+    namespace: crossplane-system
+    chart: ./systems/crossplane

@@ -1,7 +1,7 @@
 releases:
   - name: cert-manager
     namespace: cert
-    chart: ./cert/cert-manager
+    chart: ./systems/cert-manager
 
   - name: tempo
     namespace: monitoring
@@ -31,7 +31,7 @@ releases:
 
   - name: vault
     namespace: secrets
-    chart: ./secrets/vault
+    chart: ./systems/vault
 
   - name: crossplane
     namespace: crossplane-system

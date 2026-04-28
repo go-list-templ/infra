@@ -5,7 +5,4 @@ namespace: monitoring
 
 helmCharts:
   - name: pyroscope
-    repo: https://grafana.github.io/helm-charts
-    version: 1.20.3
-    releaseName: pyroscope
     valuesFile: values.yaml

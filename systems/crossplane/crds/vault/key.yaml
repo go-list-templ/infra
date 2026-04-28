@@ -1,15 +1,3 @@
-apiVersion: privatekey.tls.upbound.io/v1alpha1
-kind: PrivateKey
-metadata:
-  name: microservice-rsa-key
-spec:
-  forProvider:
-    algorithm: RSA
-    rsaBits: 4096
-  writeConnectionSecretToRef:
-    name: temp-rsa-key-data
-    namespace: crossplane-system
----
 apiVersion: kv.vault.upbound.io/v1alpha1
 kind: SecretV2
 metadata:

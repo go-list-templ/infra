@@ -13,4 +13,3 @@ helmCharts:
     version: 83.3.0
     releaseName: prometheus
     valuesFile: values.yaml
-    includeCRDs: true

@@ -13,4 +13,3 @@ helmCharts:
     version: 13.2.3
     releaseName: loki
     valuesFile: values.yaml
-    includeCRDs: true

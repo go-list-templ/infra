@@ -13,4 +13,3 @@ helmCharts:
     version: 1.20.3
     releaseName: pyroscope
     valuesFile: values.yaml
-    includeCRDs: true

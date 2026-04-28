@@ -1,6 +1,6 @@
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: provider-vault
+  name: upbound-provider-vault
 spec:
-  package: xpkg.upbound.io/upbound/provider-vault:v2.0.1
+  package: xpkg.upbound.io/upbound/provider-vault:v3.0.6

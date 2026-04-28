@@ -9,4 +9,8 @@ resources:
 
 helmCharts:
   - name: alloy
+    repo: https://grafana.github.io/helm-charts
+    version: 1.8.0
+    releaseName: alloy
     valuesFile: values.yaml
+    includeCRDs: true

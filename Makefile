@@ -1,6 +1,6 @@
 init: helm-init helm-deps
 
-release: helm-release terraform-release
+release: helm-release
 
 deps: helm-deps
 
@@ -19,11 +19,3 @@ helm-release:
 
 helm-rollback:
 	helmfile destroy --skip-charts
-
-###
-
-terraform-release: terraform-vault
-
-terraform-vault:
-	terraform -chdir=terraform/vault init
-	terraform -chdir=terraform/vault apply -auto-approve

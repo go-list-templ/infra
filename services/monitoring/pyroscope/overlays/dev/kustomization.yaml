@@ -4,6 +4,9 @@ kind: Kustomization
 namespace: monitoring
 namePrefix: dev-
 
+resources:
+  - ../../base
+
 helmCharts:
   - name: pyroscope
     valuesFile: values.yaml

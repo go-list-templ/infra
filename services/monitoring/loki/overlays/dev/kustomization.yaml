@@ -13,3 +13,11 @@ helmCharts:
     repo: https://grafana-community.github.io/helm-charts
     version: 13.2.3
     valuesFile: values.yaml
+
+patches:
+  - target:
+      namespace: default
+    patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: monitoring

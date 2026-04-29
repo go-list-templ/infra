@@ -27,7 +27,7 @@ grafana:
     - name: Prometheus
       type: prometheus
       uid: prometheus
-      url: http://prometheus-stack-kube-prom-prometheus.monitoring.svc.cluster.local:9090
+      url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
       editable: true
       jsonData:
         timeInterval: 60s

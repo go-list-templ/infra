@@ -5,6 +5,7 @@ namespace: secrets
 
 resources:
   - ../../base
+  - http-route.yaml
 
 helmCharts:
   - name: vault

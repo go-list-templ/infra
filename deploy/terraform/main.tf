@@ -8,7 +8,3 @@ terraform {
     }
   }
 }
-
-module "vault_bootstrap" {
-  source = "./"
-}

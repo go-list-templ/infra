@@ -7,4 +7,5 @@ resources:
   - ../../../services/monitoring/alloy/overlays/dev
   - ../../../services/monitoring/tempo/overlays/dev
   - ../../../services/monitoring/loki/overlays/dev
+  - ../../../services/systems/gateway/overlays/dev
   - ../../../services/systems/vault/overlays/dev

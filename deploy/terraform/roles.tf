@@ -1,8 +1,8 @@
-resource "vault_kubernetes_auth_backend_role" "microservice" {
-  backend                          = vault_auth_backend.kubernetes.path
-  role_name                        = "microservice-prod"
-  bound_service_account_names      = ["microservice-sa"]
-  bound_service_account_namespaces = ["prod"]
-  token_policies                   = ["microservice-sign"]
-  token_ttl                        = 3600
+resource "vault_kubernetes_auth_backend_role" "sso-service-role" {
+  backend   = vault_auth_backend.kubernetes.path
+  role_name = "sso-service-role"
+  bound_service_account_names = ["sso-service-sa"]
+  bound_service_account_namespaces = ["sso-service"]
+  token_policies = ["sso-service-sign"]
+  token_ttl = 3600
 }

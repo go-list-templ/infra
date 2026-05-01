@@ -1,4 +1,4 @@
-resource "vault_policy" "microservice_sign" {
-  name   = "microservice-sign"
-  policy = file("${path.module}/policies/microservice-sign.hcl")
+resource "vault_policy" "sso-service-sign" {
+  name   = "sso-service-sign"
+  policy = file("${path.module}/policies/sso-service/sign.hcl")
 }

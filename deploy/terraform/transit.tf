@@ -4,9 +4,9 @@ resource "vault_mount" "transit" {
   description = "Transit engine for encryption and signing"
 }
 
-resource "vault_transit_secret_backend_key" "microservice_rsa" {
+resource "vault_transit_secret_backend_key" "sso-service-rsa" {
   backend = vault_mount.transit.path
-  name    = "microservice-rsa-key"
+  name    = "sso-service-rsa-key"
   type    = "rsa-4096"
 
   deletion_allowed = false

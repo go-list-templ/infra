@@ -1,5 +1,5 @@
 provider "vault" {
-  address = "http://vault.secrets.svc.cluster.local:8200"
+  address = "http://vault.localhost"
 
   auth_login {
     path = "auth/kubernetes/login"

@@ -8,6 +8,10 @@ spec:
     - name: eg
       namespace: envoy-gateway-system
   rules:
-    - backendRefs:
-      - name: vault
-        port: 8200
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: vault
+          port: 8200

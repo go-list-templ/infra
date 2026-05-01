@@ -7,3 +7,10 @@ resources:
   - namespace.yaml
   - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.0/standard-install.yaml
   - gateway.yaml
+
+helmCharts:
+  - name: envoy-gateway
+    repo: oci://docker.io/envoyproxy/gateway-helm
+    version: v1.7.2
+    releaseName: gateway
+    namespace: gateway

@@ -4,12 +4,13 @@ kind: Kustomization
 namespace: gateway
 
 resources:
-  - namespace.yaml
   - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.0/standard-install.yaml
+  - namespace.yaml
+  - proxy-config.yaml
   - gateway.yaml
 
 helmCharts:
-  - name: envoy-gateway
+  - name: eg
     repo: oci://docker.io/envoyproxy/gateway-helm
     version: v1.7.2
     releaseName: gateway

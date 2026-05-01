@@ -10,15 +10,6 @@ resource "vault_kubernetes_auth_backend_config" "config" {
   disable_iss_validation = true
 }
 
-resource "vault_kubernetes_auth_backend_role" "terraform_admin" {
-  backend                          = vault_auth_backend.kubernetes.path
-  role_name                        = "terraform-admin"
-  bound_service_account_names      = ["terraform-runner"]
-  bound_service_account_namespaces = ["infra"]
-  token_policies                   = ["terraform-admin"]
-  token_ttl                        = 1800
-}
-
 resource "vault_kubernetes_auth_backend_role" "microservice" {
   backend                          = vault_auth_backend.kubernetes.path
   role_name                        = "microservice-prod"

@@ -5,8 +5,8 @@ metadata:
   namespace: secrets
 spec:
   parentRefs:
-    - name: gateway
-      namespace: gateway
+    - name: eg
+      namespace: envoy-gateway-system
   rules:
     - backendRefs:
       - name: vault

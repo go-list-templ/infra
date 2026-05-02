@@ -1,10 +1,8 @@
-terraform {
-  required_version = "1.15.0"
+provider "vault" {
+  address = "http://vault.localhost"
+  token = "root"
+}
 
-  required_providers {
-    vault = {
-      source  = "hashicorp/vault"
-      version = "5.9.0"
-    }
-  }
+module "vault" {
+  source = "./vault"
 }

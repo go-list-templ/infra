@@ -1,9 +1,11 @@
 global:
   enabled: true
 
-injector:
+csi:
   enabled: true
-  replicas: 1
+
+injector:
+  enabled: false
 
 server:
   dev:

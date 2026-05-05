@@ -1,7 +1,3 @@
-path "secret/data/sso/jwt-keys" {
+path "kvv2/data/sso/jwt" {
   capabilities = ["read"]
-}
-
-path "secret/metadata/sso/jwt-keys" {
-  capabilities = ["list", "read"]
 }

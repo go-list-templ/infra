@@ -5,5 +5,5 @@ resource "vault_kubernetes_auth_backend_role" "sso-service-role" {
   bound_service_account_names = ["sso-service-sa"]
   bound_service_account_namespaces = ["sso-service"]
 
-  token_policies = [vault_policy.sso-service-sign.name]
+  token_policies = [vault_policy.sso-service-jwt.name]
 }

@@ -9,4 +9,3 @@ resources:
   - ../../../services/monitoring/loki/overlays/dev
   - ../../../services/systems/gateway/overlays/dev
   - ../../../services/systems/vault/overlays/dev
-  - ../../../services/systems/csi/overlays/dev

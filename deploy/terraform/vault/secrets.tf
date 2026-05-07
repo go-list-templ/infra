@@ -4,13 +4,13 @@ resource "vault_mount" "kvv2" {
   description = "KV Version 2 secret engine"
 }
 
-resource "vault_kv_secret_v2" "sso_jwt" {
+resource "vault_kv_secret_v2" "sso-service" {
   mount = vault_mount.kvv2.path
-  name  = "sso/jwt"
+  name  = "sso-service/keys"
 
   data_json = jsonencode({
-    key = tls_private_key.jwt.private_key_pem
-    kid = time_rotating.jwt_rotation.unix
+    private_key = tls_private_key.sso-service-key.private_key_pem
+    public_key  = tls_private_key.sso-service-key.public_key_pem
   })
 
   custom_metadata {

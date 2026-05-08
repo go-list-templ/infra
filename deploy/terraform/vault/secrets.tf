@@ -1,20 +1,14 @@
-resource "vault_mount" "kvv2" {
-  path        = "kvv2"
-  type        = "kv-v2"
-  description = "KV Version 2 secret engine"
+resource "vault_mount" "transit" {
+  path = "transit"
+  type = "transit"
 }
 
-resource "vault_kv_secret_v2" "sso-service" {
-  mount = vault_mount.kvv2.path
-  name  = "sso-service/keys"
+resource "vault_transit_secret_backend_key" "sso-service" {
+  backend = vault_mount.transit.path
+  name    = "sso-service-keys"
+  type    = "rsa-4096"
 
-  data_json = jsonencode({
-    private_key = tls_private_key.sso-service-key.private_key_pem
-    public_key  = tls_private_key.sso-service-key.public_key_pem
-  })
+  exportable = false
 
-  custom_metadata {
-    max_versions = 12
-    cas_required = false
-  }
+  auto_rotate_period = 2592000
 }

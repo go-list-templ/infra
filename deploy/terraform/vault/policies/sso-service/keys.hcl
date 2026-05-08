@@ -1,7 +1,7 @@
-path "kvv2/data/sso-service/keys" {
-  capabilities = ["read"]
+path "transit/sign/sso-service-keys" {
+  capabilities = ["update"]
 }
 
-path "kvv2/metadata/sso-service/keys" {
+path "transit/keys/sso-service-keys" {
   capabilities = ["read", "list"]
 }

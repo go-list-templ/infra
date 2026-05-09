@@ -17,7 +17,7 @@ prometheus:
 grafana:
   adminPassword: "admin"
   service:
-    type: NodePort
+    type: ClusterIP
 
   plugins:
     - grafana-pyroscope-app

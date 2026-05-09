@@ -5,6 +5,7 @@ namespace: monitoring
 
 resources:
   - ../../base
+  - http-route.yaml
 
 helmCharts:
   - name: kube-prometheus-stack

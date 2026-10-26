@@ -3,3 +3,8 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - ../../services/alloy/overlays/dev
+  - ../../services/loki/overlays/dev
+  - ../../services/prometheus/overlays/dev
+  - ../../services/pyroscope/overlays/dev
+  - ../../services/tempo/overlays/dev
